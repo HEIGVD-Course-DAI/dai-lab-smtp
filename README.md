@@ -53,6 +53,43 @@ Use docker to start the server:
 
 This provides a Web interface on localhost:1080 and a SMTP server on localhost:1025.
 
+If you are using external dependencies such as GSON
+---------------------------------------------------
+
+In principle it is not necessary to use external dependencies for this project. You may however use a library such as GSON or Jackson to handle JSON. In this case you will have to bundle the library into the final executable JAR file. Here's what you need to add to the Maven `pom.xml` file:
+
+```
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>___WRITE_THE_NAME_OF_YOUR_MAIN_CLASS_HERE</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+```
+
+The Maven Assembly plugin adds a build step that will generate a file `....jar-with-dependencies.jar`. It is this file that an be executed.
+
 Deliverables
 ------------
 
