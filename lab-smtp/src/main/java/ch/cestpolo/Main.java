@@ -7,6 +7,9 @@ import ch.cestpolo.smtp.Client;
 
 import java.util.List;
 
+/**
+ * This class represents the main class of the application.
+ */
 public class Main {
     public static void main(String[] args) {
         Config config = new Config();
