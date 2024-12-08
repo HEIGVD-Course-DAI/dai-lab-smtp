@@ -7,6 +7,11 @@ public class Message {
     private String subject;
     private String body;
 
+    /**
+     * Constructor of the Message class
+     * @param subject Subject of the message
+     * @param body Body of the message
+     */
     public Message(String subject, String body) {
         this.subject = subject;
         this.body = body;
