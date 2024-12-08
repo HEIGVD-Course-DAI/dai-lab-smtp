@@ -14,8 +14,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+/**
+ * Configuration class that loads the configuration from the files in the config directory.
+ */
 public class Config {
-    private final static String MAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private final static String MAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"; // Regex for mail validation
     private final static Pattern MAIL_PATTERN = Pattern.compile(MAIL_REGEX);
     private final static Path PERSON_PATH = Path.of("./config/persons.txt"),
             CONFIG_PATH = Path.of("./config/config.properties"),
@@ -26,6 +29,9 @@ public class Config {
     private final List<Person> persons;
     private final List<Message> messages;
 
+    /**
+     * Constructor that loads the configuration from the files.
+     */
     public Config() {
         try {
             loadConfig();
@@ -36,6 +42,10 @@ public class Config {
         }
     }
 
+    /**
+     * Load the configuration from the config.properties file.
+     * @throws IOException if an error occurs while reading the file.
+     */
     private void loadConfig() throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(CONFIG_PATH, StandardCharsets.UTF_8)) {
             Properties properties = new Properties();
@@ -46,6 +56,11 @@ public class Config {
         }
     }
 
+    /**
+     * Load the messages from the messages.txt file.
+     * @return the list of messages.
+     * @throws IOException if an error occurs while reading the file.
+     */
     private List<Message> loadMessages() throws IOException {
         List<Message> messages = new LinkedList<>();
         try (BufferedReader reader = Files.newBufferedReader(MESSAGE_PATH, StandardCharsets.UTF_8)) {
@@ -72,6 +87,11 @@ public class Config {
         return messages;
     }
 
+    /**
+     * Load the persons from the persons.txt file.
+     * @return the list of persons.
+     * @throws IOException if an error occurs while reading the file.
+     */
     private List<Person> loadPersons() throws IOException {
         try (BufferedReader reader = Files.newBufferedReader(PERSON_PATH, StandardCharsets.UTF_8)) {
             List<Person> persons = new LinkedList<>(reader.lines()
@@ -92,26 +112,51 @@ public class Config {
         }
     }
 
+    /**
+     * Check if the given string is a valid mail.
+     * @param mail the mail to check.
+     * @return true if the mail is valid, false otherwise.
+     */
     private boolean isMail(String mail) {
         return MAIL_PATTERN.matcher(mail).matches();
     }
 
+    /**
+     * Get the server address.
+     * @return the server address.
+     */
     public String getServerAddress() {
         return serverAddress;
     }
 
+    /**
+     * Get the server port.
+     * @return the server port.
+     */
     public int getServerPort() {
         return serverPort;
     }
 
+    /**
+     * Get the number of groups.
+     * @return the number of groups.
+     */
     public int getNumberGroups() {
         return numberGroups;
     }
 
+    /**
+     * Get the list of persons.
+     * @return the list of persons.
+     */
     public List<Person> getPersons() {
         return persons;
     }
 
+    /**
+     * Get the list of messages.
+     * @return the list of messages.
+     */
     public List<Message> getMessages() {
         return messages;
     }
